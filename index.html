@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SACRED PREMIUM MODZZZ</title>
+
+<style>
+:root{
+  --bg:#02040a;
+  --card:rgba(255,255,255,0.05);
+  --neon:#00e5ff;
+  --red:#ff004c;
+}
+
+*{
+  margin:0;
+  padding:0;
+  font-family:Arial;
+  box-sizing:border-box;
+}
+
+body{
+  background:radial-gradient(circle at top,#0a0f1f,#02040a);
+  color:white;
+}
+
+/* TOP */
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  background:rgba(0,0,0,0.7);
+  border-bottom:1px solid #222;
+}
+
+.logo{
+  color:var(--neon);
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+  padding:15px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid rgba(0,229,255,0.2);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 0 15px rgba(0,229,255,0.05);
+}
+
+.card img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+}
+
+.content{
+  padding:12px;
+}
+
+h3{
+  color:white;
+}
+
+.desc{
+  font-size:13px;
+  opacity:0.7;
+  margin-top:5px;
+}
+
+.price{
+  margin-top:8px;
+  color:var(--neon);
+  font-weight:bold;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.buy{
+  background:linear-gradient(135deg,#00e5ff,#0066ff);
+  color:white;
+}
+
+.buy:hover{
+  box-shadow:0 0 15px #00e5ff;
+}
+
+/* ADMIN PANEL */
+#admin{
+  position:fixed;
+  right:-380px;
+  top:0;
+  width:340px;
+  height:100vh;
+  background:#0b0f1a;
+  border-left:1px solid #222;
+  padding:15px;
+  transition:0.3s;
+  overflow:auto;
+}
+
+#admin.active{
+  right:0;
+}
+
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  background:#111;
+  border:none;
+  color:white;
+  border-radius:8px;
+}
+
+.save{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:var(--neon);
+  border:none;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+.msg{
+  background:#111;
+  padding:10px;
+  margin-top:8px;
+  border-radius:10px;
+  border:1px solid rgba(0,229,255,0.2);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+<div class="top">
+  <div class="logo">SACRED PREMIUM MODZZZ</div>
+  <button onclick="toggleAdmin()">☰</button>
+</div>
+
+<!-- PRODUCTS -->
+<div id="products" class="products"></div>
+
+<!-- ADMIN -->
+<div id="admin">
+
+<h2 style="color:var(--neon)">ADMIN PANEL</h2>
+
+<input type="password" id="pass" placeholder="Admin password">
+<button class="save" onclick="login()">Unlock</button>
+
+<div id="panel" style="display:none">
+
+<h3>Add Product</h3>
+<input id="name" placeholder="Name">
+<input id="price" placeholder="Price">
+<textarea id="desc" placeholder="Description"></textarea>
+<input type="file" id="img">
+<button class="save" onclick="add()">Add Product</button>
+
+<hr>
+
+<h3>Orders</h3>
+<div id="orders"></div>
+
+</div>
+</div>
+
+<script>
+
+let admin=false;
+
+let products=JSON.parse(localStorage.getItem("p"))||[];
+let orders=JSON.parse(localStorage.getItem("o"))||[];
+
+const PASS="sacred123";
+
+/* ADMIN TOGGLE */
+function toggleAdmin(){
+document.getElementById("admin").classList.toggle("active");
+}
+
+/* LOGIN */
+function login(){
+if(pass.value===PASS){
+admin=true;
+panel.style.display="block";
+alert("Admin unlocked");
+}else alert("Wrong password");
+}
+
+/* ADD PRODUCT */
+function add(){
+
+let reader=new FileReader();
+
+reader.onload=e=>{
+
+products.push({
+name:name.value,
+price:price.value,
+desc:desc.value,
+img:e.target.result
+});
+
+save();
+render();
+}
+
+reader.readAsDataURL(img.files[0]);
+}
+
+/* BUY */
+function buy(n,p){
+
+orders.push({
+name:n,
+price:p,
+status:"pending"
+});
+
+save();
+renderOrders();
+alert("Order sent!");
+}
+
+/* SAVE */
+function save(){
+localStorage.setItem("p",JSON.stringify(products));
+localStorage.setItem("o",JSON.stringify(orders));
+}
+
+/* RENDER PRODUCTS */
+function render(){
+
+let box=document.getElementById("products");
+box.innerHTML="";
+
+products.forEach(p=>{
+box.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<div class="content">
+<h3>${p.name}</h3>
+<div class="desc">${p.desc}</div>
+<div class="price">${p.price}</div>
+
+<button class="btn buy" onclick="buy('${p.name}','${p.price}')">
+BUY NOW
+</button>
+
+</div></div>`;
+});
+}
+
+/* ORDERS */
+function renderOrders(){
+
+ordersBox.innerHTML="";
+
+orders.forEach(o=>{
+ordersBox.innerHTML+=`
+<div class="msg">
+<b>${o.name}</b><br>
+${o.price}<br>
+${o.status}
+</div>`;
+});
+}
+
+/* INIT */
+render();
+
+</script>
+
+</body>
+</html>
