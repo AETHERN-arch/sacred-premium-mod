@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SACRED STORE</title>
+
+<style>
+
+/* ================= BASE ================= */
+body{
+  margin:0;
+  font-family:Arial;
+  background:#040008;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  background: radial-gradient(circle at top,#1a0025,#040008);
+}
+
+.bg::before{
+  content:"";
+  position:absolute;
+  width:200%;
+  height:200%;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,0,170,0.08) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(0deg, rgba(0,200,255,0.05) 0 1px, transparent 1px 80px);
+  animation:gridMove 12s linear infinite;
+  transform:rotate(12deg);
+}
+
+.bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,0,170,0.25), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(0,200,255,0.15), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(140,0,255,0.18), transparent 50%);
+  animation:glowMove 6s ease-in-out infinite;
+  filter: blur(10px);
+}
+
+/* ================= HEADER ================= */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px;
+}
+
+header h1{
+  color:#ff4fd8;
+  font-size:20px;
+  text-shadow:0 0 10px #ff4fd8;
+}
+
+/* ================= MENU ================= */
+.menu-btn{
+  width:45px;
+  height:45px;
+  background:#111;
+  border:none;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:5px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.menu-btn span{
+  width:22px;
+  height:3px;
+  background:#00e5ff;
+}
+
+/* ================= SECTIONS ================= */
+.section{
+  display:none;
+  padding:20px;
+}
+
+.section.active{
+  display:block;
+}
+
+/* ================= PRODUCTS ================= */
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:rgba(20,0,30,0.6);
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,0,170,0.2);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.02);
+}
+
+.card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+
+.content{
+  padding:15px;
+}
+
+.price{
+  color:#ff4fd8;
+  font-weight:bold;
+}
+
+/* BUTTON */
+.btn{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff4fd8,#7a00ff,#00e5ff);
+  color:white;
+}
+
+/* ================= LIST ================= */
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.link{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,229,255,0.2);
+  text-decoration:none;
+  color:white;
+}
+
+/* ================= ANIMATIONS ================= */
+@keyframes gridMove{
+  0%{transform:translate(0,0) rotate(12deg);}
+  100%{transform:translate(-80px,-80px) rotate(12deg);}
+}
+
+@keyframes glowMove{
+  0%,100%{transform:translate(0,0);}
+  50%{transform:translate(40px,-25px);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<!-- HEADER -->
+<header>
+  <h1>SACRED STORE</h1>
+
+  <button class="menu-btn" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ================= PRODUCTS ================= -->
+<section id="products" class="section active">
+
+  <div class="container">
+
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/AETHERN-arch/sacred-premium-mod/main/IMG_20260512_150639_887.jpg">
+      <div class="content">
+        <h3>7 DAYS PREMIUM</h3>
+        <div class="price">₱150</div>
+        <button class="btn" onclick="buy('7 DAYS')">BUY NOW</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/AETHERN-arch/sacred-premium-mod/main/IMG_20260512_150639_887.jpg">
+      <div class="content">
+        <h3>15 DAYS PREMIUM</h3>
+        <div class="price">₱250</div>
+        <button class="btn" onclick="buy('15 DAYS')">BUY NOW</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/AETHERN-arch/sacred-premium-mod/main/IMG_20260512_150639_887.jpg">
+      <div class="content">
+        <h3>1 MONTH PREMIUM</h3>
+        <div class="price">₱400</div>
+        <button class="btn" onclick="buy('1 MONTH')">BUY NOW</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/AETHERN-arch/sacred-premium-mod/main/IMG_20260512_150639_887.jpg">
+      <div class="content">
+        <h3>LIFETIME</h3>
+        <div class="price">₱650</div>
+        <button class="btn" onclick="buy('LIFETIME')">BUY NOW</button>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= TELEGRAM ================= -->
+<section id="telegram" class="section">
+
+  <h2>TELEGRAM CHANNELS</h2>
+
+  <div class="list">
+    <a class="link" href="https://t.me/sacredofficial" target="_blank">@sacredofficial</a>
+    <a class="link" href="https://t.me/SacredSyntaxJamalShane" target="_blank">@SacredSyntaxJamalShane</a>
+  </div>
+
+</section>
+
+<!-- ================= TIKTOK ================= -->
+<section id="tiktok" class="section">
+
+  <h2>TIKTOK</h2>
+
+  <div class="list">
+    <a class="link" href="https://www.tiktok.com/@aethernmodz" target="_blank">@aethernmodz</a>
+    <a class="link" href="https://www.tiktok.com/@sacredglidez" target="_blank">@sacredglidez</a>
+  </div>
+
+</section>
+
+<script>
+
+/* MENU SWITCH */
+function toggleMenu(){
+
+  const p = document.getElementById("products");
+  const t = document.getElementById("telegram");
+  const k = document.getElementById("tiktok");
+
+  if(p.classList.contains("active")){
+    p.classList.remove("active");
+    t.classList.add("active");
+  }
+  else if(t.classList.contains("active")){
+    t.classList.remove("active");
+    k.classList.add("active");
+  }
+  else{
+    k.classList.remove("active");
+    p.classList.add("active");
+  }
+}
+
+/* BUY */
+function buy(item){
+  window.open(
+    "https://t.me/sacredph?text=" +
+    encodeURIComponent("Buy: " + item),
+    "_blank"
+  );
+}
+
+</script>
+
+</body>
+</html>
