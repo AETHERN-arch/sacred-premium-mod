@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SACRED PREMIUM MODZZZ</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#05070d;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 25px;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#00e5ff;
+}
+
+/* MENU */
+.menu-btn{
+    width:48px;
+    height:48px;
+    border:none;
+    border-radius:12px;
+    background:#0d1117;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+}
+
+.menu-btn span{
+    width:22px;
+    height:3px;
+    background:#00e5ff;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:70px 20px 40px;
+}
+
+.hero h1{
+    font-size:48px;
+    color:#00e5ff;
+}
+
+.hero p{
+    opacity:0.8;
+    margin-top:10px;
+}
+
+/* PRODUCTS */
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+    padding:40px;
+}
+
+/* FREE DOWNLOADS */
+.free-downloads{
+    padding:20px 40px;
+}
+
+/* CARD */
+.product-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(0,229,255,0.15);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.product-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.product-content{
+    padding:18px;
+}
+
+.product-content h3{
+    color:#00e5ff;
+}
+
+.price{
+    margin-top:10px;
+    font-size:22px;
+    color:#00e5ff;
+}
+
+/* BUTTONS */
+.buy-btn,
+.download-btn,
+.save-btn{
+    width:100%;
+    border:none;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.buy-btn{
+    background:linear-gradient(135deg,#00e5ff,#0066ff);
+    color:white;
+}
+
+.download-btn{
+    background:#0d1117;
+    border:1px solid rgba(255,255,255,0.1);
+    color:white;
+}
+
+/* ADMIN */
+.admin-panel{
+    position:fixed;
+    top:0;
+    right:-450px;
+    width:420px;
+    height:100vh;
+    background:#05070d;
+    border-left:1px solid rgba(255,255,255,0.08);
+    padding:20px;
+    transition:0.3s;
+    overflow-y:auto;
+}
+
+.admin-panel.active{
+    right:0;
+}
+
+.admin-header{
+    display:flex;
+    justify-content:space-between;
+}
+
+input,textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:12px;
+    background:#0d1117;
+    color:white;
+}
+
+.manage-card{
+    background:#0d1117;
+    padding:12px;
+    border-radius:12px;
+    margin-top:10px;
+}
+
+.delete-btn{
+    width:100%;
+    padding:10px;
+    background:red;
+    color:white;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+    <div class="logo">SACRED PREMIUM MODZZZ</div>
+    <button class="menu-btn" onclick="toggleAdmin()">
+        <span></span><span></span><span></span>
+    </button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>CODM PREMIUM STORE</h1>
+    <p>Premium store system with admin panel</p>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products"></section>
+
+<!-- FREE DOWNLOADS -->
+<section class="free-downloads">
+    <h2 style="color:#00e5ff;">FREE DOWNLOADS</h2>
+    <div id="freeDownloads"></div>
+</section>
+
+<!-- ADMIN -->
+<div class="admin-panel" id="adminPanel">
+
+<div class="admin-header">
+<h2>ADMIN</h2>
+<span onclick="toggleAdmin()" style="cursor:pointer;">✖</span>
+</div>
+
+<input type="password" id="adminPassword" placeholder="Password">
+<button class="save-btn" onclick="loginAdmin()">LOGIN</button>
+
+<div id="adminContent" style="display:none">
+
+<h3>Add Product</h3>
+<input id="pName" placeholder="Name">
+<input id="pPrice" placeholder="Price">
+<textarea id="pDesc" placeholder="Desc"></textarea>
+<input type="file" id="pImg">
+
+<button class="save-btn" onclick="addProduct()">ADD PRODUCT</button>
+
+<h3>Add Free Download</h3>
+<input id="fTitle" placeholder="Title">
+<input id="fLink" placeholder="Link">
+<button class="save-btn" onclick="addFree()">ADD FREE</button>
+
+<div id="manager"></div>
+
+</div>
+</div>
+
+<script>
+
+const ADMIN_PASSWORD="sacred123";
+
+let products = JSON.parse(localStorage.getItem("products")) || [];
+let freeDownloads = JSON.parse(localStorage.getItem("freeDownloads")) || [];
+
+function toggleAdmin(){
+document.getElementById("adminPanel").classList.toggle("active");
+}
+
+function loginAdmin(){
+let pass=document.getElementById("adminPassword").value;
+if(pass===ADMIN_PASSWORD){
+document.getElementById("adminContent").style.display="block";
+}else alert("Wrong password");
+}
+
+function save(){
+localStorage.setItem("products",JSON.stringify(products));
+localStorage.setItem("freeDownloads",JSON.stringify(freeDownloads));
+}
+
+function render(){
+
+let p=document.getElementById("products");
+let f=document.getElementById("freeDownloads");
+let m=document.getElementById("manager");
+
+p.innerHTML="";
+f.innerHTML="";
+m.innerHTML="<h3>MANAGER</h3>";
+
+products.forEach((x,i)=>{
+p.innerHTML+=`
+<div class="product-card">
+<div class="product-content">
+<h3>${x.name}</h3>
+<p>${x.desc}</p>
+<div class="price">${x.price}</div>
+<button class="buy-btn" onclick="buy('${x.name}')">BUY</button>
+</div>
+</div>`;
+
+m.innerHTML+=`
+<div class="manage-card">
+<p>${x.name}</p>
+<button class="delete-btn" onclick="delP(${i})">DELETE</button>
+</div>`;
+});
+
+freeDownloads.forEach((x,i)=>{
+f.innerHTML+=`
+<div class="product-card">
+<div class="product-content">
+<h3>${x.title}</h3>
+<button class="download-btn" onclick="window.open('${x.link}','_blank')">DOWNLOAD</button>
+</div>
+</div>`;
+
+m.innerHTML+=`
+<div class="manage-card">
+<p>${x.title}</p>
+<button class="delete-btn" onclick="delF(${i})">DELETE</button>
+</div>`;
+});
+}
+
+function addProduct(){
+let name=document.getElementById("pName").value;
+let price=document.getElementById("pPrice").value;
+let desc=document.getElementById("pDesc").value;
+let file=document.getElementById("pImg").files[0];
+
+if(!name||!price||!desc||!file)return alert("Fill all");
+
+let reader=new FileReader();
+reader.onload=e=>{
+products.push({name,price,desc,image:e.target.result});
+save();render();
+};
+reader.readAsDataURL(file);
+}
+
+function addFree(){
+let title=document.getElementById("fTitle").value;
+let link=document.getElementById("fLink").value;
+
+if(!title||!link)return alert("Fill all");
+
+freeDownloads.push({title,link});
+save();render();
+}
+
+function delP(i){
+products.splice(i,1);
+save();render();
+}
+
+function delF(i){
+freeDownloads.splice(i,1);
+save();render();
+}
+
+function buy(name){
+window.open("https://t.me/sacredph?text="+encodeURIComponent("I want "+name),"blank");
+}
+
+render();
+
+</script>
+</body>
+</html>
