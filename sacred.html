@@ -1,0 +1,292 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SACRED PREMIUM MODZZZ</title>  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1f2937, #0b0f1a);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      color: #22d3ee;
+      letter-spacing: 1px;
+    }
+
+    .nav-links a {
+      color: white;
+      margin-left: 18px;
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: #22d3ee;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .hero img {
+      width: 260px;
+      height: 260px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 40px rgba(34,211,238,0.3);
+      border: 2px solid rgba(255,255,255,0.1);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+      color: #22d3ee;
+      text-shadow: 0 0 20px rgba(34,211,238,0.3);
+    }
+
+    .hero p {
+      max-width: 700px;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    .price {
+      margin-top: 15px;
+      font-size: 24px;
+      color: #34d399;
+      font-weight: bold;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #22d3ee, #3b82f6);
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 60px 40px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 20px;
+      border-radius: 16px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .card h3 {
+      color: #22d3ee;
+      margin-bottom: 10px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      opacity: 0.6;
+    }
+
+    /* OWNER PANEL */
+    .panel-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      background: #22d3ee;
+      color: black;
+      font-size: 22px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .owner-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 400px;
+      height: 100vh;
+      background: #0b1220;
+      border-left: 1px solid rgba(255,255,255,0.1);
+      padding: 20px;
+      overflow-y: auto;
+      transition: 0.3s;
+    }
+
+    .owner-panel.active {
+      right: 0;
+    }
+
+    .owner-panel h2 {
+      color: #22d3ee;
+      margin-bottom: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: #111827;
+      color: white;
+    }
+
+    .save {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #22d3ee, #3b82f6);
+      color: white;
+      cursor: pointer;
+    }
+
+    @media(max-width:600px){
+      .hero h1{font-size:32px;}
+      .owner-panel{width:100%;right:-100%;}
+    }
+  </style></head>
+<body>  <div class="navbar">
+    <div class="logo" id="siteTitle">SACRED PREMIUM MODZZZ</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#features">Features</a>
+      <a href="#buy">Buy</a>
+    </div>
+  </div>  <section class="hero">
+    <img id="productImage" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30" />
+    <h1 id="productName">Premium Mod Pack</h1>
+    <p id="productDesc">Unlock premium features, smooth performance, and exclusive upgrades with our SACRED MODZZZ package.</p>
+    <div class="price" id="productPrice">$9.99</div>
+    <button class="btn" id="buyBtn">Buy Now</button>
+  </section>  <section class="features" id="features">
+    <div class="card"><h3>Fast</h3><p>Optimized performance with no lag.</p></div>
+    <div class="card"><h3>Secure</h3><p>Safe and stable usage experience.</p></div>
+    <div class="card"><h3>Premium</h3><p>Exclusive features unlocked.</p></div>
+  </section>  <div class="footer" id="footerText">© 2026 SACRED PREMIUM MODZZZ</div>  <!-- OWNER PANEL --><button class="panel-toggle" onclick="togglePanel()">⚙</button>
+
+  <div class="owner-panel" id="panel">
+    <h2>Owner Panel</h2><label>Website Title</label>
+<input id="iTitle" />
+
+<label>Product Name</label>
+<input id="iName" />
+
+<label>Product Description</label>
+<textarea id="iDesc"></textarea>
+
+<label>Price</label>
+<input id="iPrice" />
+
+<label>Image URL</label>
+<input id="iImg" />
+
+<label>Buy Button Text</label>
+<input id="iBtn" />
+
+<label>Footer Text</label>
+<input id="iFooter" />
+
+<button class="save" onclick="save()">Save Changes</button>
+
+  </div>  <script>
+    function togglePanel(){
+      document.getElementById('panel').classList.toggle('active');
+    }
+
+    function save(){
+      const map = {
+        siteTitle: 'iTitle',
+        productName: 'iName',
+        productDesc: 'iDesc',
+        productPrice: 'iPrice',
+        productImage: 'iImg',
+        buyBtn: 'iBtn',
+        footerText: 'iFooter'
+      };
+
+      for(let key in map){
+        let el = document.getElementById(key);
+        let input = document.getElementById(map[key]).value;
+        if(input){
+          if(key === 'productImage') el.src = input;
+          else el.innerText = input;
+          localStorage.setItem(key, input);
+        }
+      }
+
+      alert('Updated Successfully!');
+    }
+
+    window.onload = () => {
+      const keys = ['siteTitle','productName','productDesc','productPrice','productImage','buyBtn','footerText'];
+      keys.forEach(k => {
+        const val = localStorage.getItem(k);
+        if(val){
+          const el = document.getElementById(k);
+          if(el){
+            if(k === 'productImage') el.src = val;
+            else el.innerText = val;
+          }
+        }
+      });
+    }
+  </script></body>
+</html>
